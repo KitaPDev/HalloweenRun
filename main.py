@@ -47,6 +47,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.display.quit()
+                pygame.quit()
 
         s.SCREEN.fill((255, 255, 255))
         userInput = pygame.key.get_pressed()
@@ -101,6 +103,8 @@ def menu(death_count):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.display.quit()
+                pygame.quit()
             if event.type == pygame.KEYDOWN:
                 main()
 
