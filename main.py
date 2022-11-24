@@ -17,7 +17,7 @@ def main():
 
     s.GAME_SPEED = 20
     s.X_POS_BG = 0
-    s.Y_POS_BG = 380
+    s.Y_POS_BG = 0
     s.POINTS = 0
     s.OBSTACLES = []
     
@@ -27,7 +27,7 @@ def main():
     def score():
         s.POINTS += 1
         if s.POINTS % 100 == 0:
-            s.GAME_SPEED += 1
+            s.GAME_SPEED += 10
 
         text = font.render(str(s.POINTS), True, (0, 0, 0))
         textRect = text.get_rect()
@@ -53,6 +53,8 @@ def main():
         s.SCREEN.fill((255, 255, 255))
         userInput = pygame.key.get_pressed()
 
+        background()
+
         player.draw(s.SCREEN)
         player.update(userInput)
 
@@ -67,8 +69,6 @@ def main():
                 pygame.time.delay(1500)
                 death_count += 1
                 menu(death_count)
-
-        background()
 
         cloud.draw(s.SCREEN)
         cloud.update()
@@ -97,7 +97,7 @@ def menu(death_count):
         textRect = text.get_rect()
         textRect.center = (s.SCREEN_WIDTH // 2, s.SCREEN_HEIGHT // 2)
         s.SCREEN.blit(text, textRect)
-        s.SCREEN.blit(s.RUNNING[0], (s.SCREEN_WIDTH // 2 - 20, s.SCREEN_HEIGHT // 2 - 140))
+        s.SCREEN.blit(s.RUNNING[0], (s.SCREEN_WIDTH // 2 - 20, s.SCREEN_HEIGHT // 2 - 200))
         pygame.display.update()
 
         for event in pygame.event.get():

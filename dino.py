@@ -3,8 +3,8 @@ import settings
 
 class Dinosaur:
     X_POS = 80
-    Y_POS = 310
-    Y_POS_DUCK = 340
+    Y_POS = 340
+    Y_POS_DUCK = 380
     JUMP_VEL = 8.5
 
     def __new__(cls):
