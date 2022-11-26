@@ -1,11 +1,11 @@
 import random
 import settings
 
-class Cloud:
+class WitchBG:
     def __init__(self):
         self.x = settings.SCREEN_WIDTH + random.randint(800, 1000)
         self.y = random.randint(50, 100)
-        self.image = settings.CLOUD
+        self.image = settings.WITCH_BG
         self.width = self.image.get_width()
 
     def update(self):

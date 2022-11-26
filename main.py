@@ -1,7 +1,7 @@
 import pygame
 import random
-from dino import Dinosaur
-from cloud import Cloud
+from mummy import Mummy
+from witch_bg import WitchBG
 from obstacle_factory import ObstacleFactory
 import settings as s
 
@@ -12,8 +12,8 @@ def main():
     run = True
     clock = pygame.time.Clock()
     
-    player = Dinosaur()
-    cloud = Cloud()
+    player = Mummy()
+    cloud = WitchBG()
 
     s.GAME_SPEED = 20
     s.X_POS_BG = 0
@@ -27,7 +27,7 @@ def main():
     def score():
         s.POINTS += 1
         if s.POINTS % 100 == 0:
-            s.GAME_SPEED += 10
+            s.GAME_SPEED += 2
 
         text = font.render(str(s.POINTS), True, (0, 0, 0))
         textRect = text.get_rect()
@@ -55,20 +55,24 @@ def main():
 
         background()
 
-        player.draw(s.SCREEN)
-        player.update(userInput)
-
         if len(s.OBSTACLES) == 0:
             s.OBSTACLES.append(ObstacleFactory.create(random.randint(0, 2)))
 
         for obs in s.OBSTACLES:
-            obs.draw(s.SCREEN)
-            obs.update()
-            if player.dino_rect.collidepoint(obs.rect.center):
+            if pygame.sprite.collide_rect(player, obs):
+                player.draw(s.SCREEN)
                 player.update(userInput)
+                obs.draw(s.SCREEN)
+                obs.update()
                 pygame.time.delay(1500)
                 death_count += 1
                 menu(death_count)
+
+            obs.draw(s.SCREEN)
+            obs.update()
+
+        player.draw(s.SCREEN)
+        player.update(userInput)
 
         cloud.draw(s.SCREEN)
         cloud.update()
@@ -97,7 +101,7 @@ def menu(death_count):
         textRect = text.get_rect()
         textRect.center = (s.SCREEN_WIDTH // 2, s.SCREEN_HEIGHT // 2)
         s.SCREEN.blit(text, textRect)
-        s.SCREEN.blit(s.RUNNING[0], (s.SCREEN_WIDTH // 2 - 20, s.SCREEN_HEIGHT // 2 - 200))
+        s.SCREEN.blit(s.RUNNING[0], (s.SCREEN_WIDTH // 2 - 50, s.SCREEN_HEIGHT // 2 - 200))
         pygame.display.update()
 
         for event in pygame.event.get():

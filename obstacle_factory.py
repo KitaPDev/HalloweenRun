@@ -1,5 +1,6 @@
 import random
 import settings
+import pygame
 
 class ObstacleFactory():
     def __init__():
@@ -7,17 +8,25 @@ class ObstacleFactory():
 
     def create(obsTypeId):
         if obsTypeId == 0:
-            return SmallScarecrow(settings.SMALL_SCARECROW)
+            return SmallPumpkin(settings.SMALL_PUMPKIN)
         elif obsTypeId == 1:
-            return LargeScarecrow(settings.LARGE_SCARECROW)
+            return LargePumpkin(settings.LARGE_PUMPKIN)
         elif obsTypeId == 2:
-            return Bird(settings.BIRD)
+            return Witch(settings.WITCH)
 
 class Obstacle:
     def __init__(self, image, type):
         self.image = image
         self.type = type
-        self.rect = self.image[self.type].get_bounding_rect()
+
+        rect = self.image[self.type].get_bounding_rect()
+        c = rect.center
+        w = rect.width * 0.6
+        h = rect.height * 0.4
+        new_rect = pygame.Rect(0,0,w,h)
+        new_rect.center = c
+
+        self.rect = new_rect
         self.rect.x = settings.SCREEN_WIDTH
 
     def update(self):
@@ -28,25 +37,25 @@ class Obstacle:
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
 
-class SmallScarecrow(Obstacle):
+class SmallPumpkin(Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 420
 
 
-class LargeScarecrow(Obstacle):
+class LargePumpkin(Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 390
 
 
-class Bird(Obstacle):
+class Witch(Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = 200 + (random.randint(0, 1) * 120)
+        self.rect.y = 220 + (random.randint(0, 1) * 140)
         self.index = 0
 
     def draw(self, SCREEN):
