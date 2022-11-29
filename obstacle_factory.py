@@ -55,7 +55,7 @@ class Witch(Obstacle):
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = 220 + (random.randint(0, 1) * 140)
+        self.rect.y = 250 + (random.randint(0, 1) * 120)
         self.index = 0
 
     def draw(self, SCREEN):

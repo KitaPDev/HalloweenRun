@@ -77,7 +77,7 @@ class Mummy:
     def jump(self):
         self.image = self.jump_img
         if self.is_jumping:
-            self.rect.y -= self.jump_vel * 5
+            self.rect.y -= self.jump_vel * 4
             self.jump_vel -= 0.8
         if self.jump_vel < - self.JUMP_VEL:
             self.is_jumping = False
