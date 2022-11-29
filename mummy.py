@@ -7,19 +7,19 @@ class Mummy:
     Y_POS_DUCK = 380
     JUMP_VEL = 8.5
 
-    def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(Mummy, cls).__new__(cls)
-        return cls.instance
+    def __new__(self):
+        if not hasattr(self, 'instance'):
+            self.instance = super(Mummy, self).__new__(self)
+        return self.instance
 
     def __init__(self):
         self.duck_img = settings.DUCKING
         self.run_img = settings.RUNNING
         self.jump_img = settings.JUMPING
 
-        self.mummy_duck = False
-        self.mummy_run = True
-        self.mummy_jump = False
+        self.is_ducking = False
+        self.is_running = True
+        self.is_jumping = False
 
         self.step_index = 0
         self.jump_vel = self.JUMP_VEL
@@ -36,31 +36,29 @@ class Mummy:
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
 
-    def update(self, userInput, isDead = False):
-        if self.mummy_duck:
+    def update(self, userInput):
+        if self.is_ducking:
             self.duck()
-        if self.mummy_run:
+        if self.is_running:
             self.run()
-        if self.mummy_jump:
+        if self.is_jumping:
             self.jump()
-        if isDead:
-            self.dead()
 
         if self.step_index >= 10:
             self.step_index = 0
 
-        if userInput[pygame.K_UP] and not self.mummy_jump:
-            self.mummy_duck = False
-            self.mummy_run = False
-            self.mummy_jump = True
-        elif userInput[pygame.K_DOWN] and not self.mummy_jump:
-            self.mummy_duck = True
-            self.mummy_run = False
-            self.mummy_jump = False
-        elif not (self.mummy_jump or userInput[pygame.K_DOWN]):
-            self.mummy_duck = False
-            self.mummy_run = True
-            self.mummy_jump = False
+        if userInput[pygame.K_UP] and not self.is_jumping:
+            self.is_ducking = False
+            self.is_running = False
+            self.is_jumping = True
+        elif userInput[pygame.K_DOWN] and not self.is_jumping:
+            self.is_ducking = True
+            self.is_running = False
+            self.is_jumping = False
+        elif not (self.is_jumping or userInput[pygame.K_DOWN]):
+            self.is_ducking = False
+            self.is_running = True
+            self.is_jumping = False
 
     def duck(self):
         self.image = self.duck_img[self.step_index // 5]
@@ -78,11 +76,11 @@ class Mummy:
 
     def jump(self):
         self.image = self.jump_img
-        if self.mummy_jump:
+        if self.is_jumping:
             self.rect.y -= self.jump_vel * 5
             self.jump_vel -= 0.8
         if self.jump_vel < - self.JUMP_VEL:
-            self.mummy_jump = False
+            self.is_jumping = False
             self.jump_vel = self.JUMP_VEL
 
     def draw(self, SCREEN):

@@ -6,7 +6,7 @@ from obstacle_factory import ObstacleFactory
 import settings as s
 
 pygame.init()
-pygame.display.set_caption("Dino Run")
+pygame.display.set_caption("Halloween Run")
 
 def main():
     run = True
@@ -29,7 +29,7 @@ def main():
         if s.POINTS % 100 == 0:
             s.GAME_SPEED += 2
 
-        text = font.render(str(s.POINTS), True, (0, 0, 0))
+        text = font.render(str(s.POINTS), True, (255, 255, 255))
         textRect = text.get_rect()
         textRect.center = (1000, 40)
         s.SCREEN.blit(text, textRect)
