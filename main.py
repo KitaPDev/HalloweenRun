@@ -13,7 +13,7 @@ def main():
     clock = pygame.time.Clock()
     
     player = Mummy()
-    cloud = WitchBG()
+    witchBg = WitchBG()
 
     s.GAME_SPEED = 20
     s.X_POS_BG = 0
@@ -74,8 +74,8 @@ def main():
         player.draw(s.SCREEN)
         player.update(userInput)
 
-        cloud.draw(s.SCREEN)
-        cloud.update()
+        witchBg.draw(s.SCREEN)
+        witchBg.update()
 
         score()
 
